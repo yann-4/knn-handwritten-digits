@@ -1,0 +1,72 @@
+HOW TO RUN THESE FILES IN PYCHARM
+=================================
+
+DO THIS BEFORE CLASS (needs internet once)
+1. Unzip this folder somewhere easy, like Desktop/digits_project.
+2. PyCharm > File > Open > pick the digits_project folder.
+   If PyCharm offers to create a virtual environment, say yes.
+3. Open the Terminal tab at the bottom of PyCharm and type:
+       pip install numpy scikit-learn matplotlib
+4. Right-click knn.py > Run 'knn'. If it prints a score, everything works.
+   Run every file once at home so nothing surprises you in class.
+
+IN CLASS
+- Open the file, then click the green Run button (top right).
+- The results print in the Run window at the bottom.
+- A picture window opens at the end with that file's graph. Close it to finish the run.
+- The same graphs are saved in the graphs folder, in case you need them as pictures.
+- THE DATA is in training_digits_10000.csv and test_digits_2000.csv (open them in
+  Excel: one row per digit, its answer, then its 784 pixels). data.py reads them.
+  Keep them in the same folder as the .py files. No internet is needed.
+- SOURCE: the MNIST database of handwritten digits (Yann LeCun, Corinna Cortes,
+  Christopher Burges), https://yann.lecun.com/exdb/mnist/ . The CSV files were made
+  from mnist.npz (the Keras/TensorFlow copy of MNIST). If the CSV files are ever
+  missing, data.py makes them again from mnist.npz.
+
+READING THE CODE
+- Every model file follows the same 7 steps, marked  # ---- STEP n ----  in the code:
+  1 import the libraries, 2 load the data, 3 build the model, 4 train it (fit),
+  5 test it and print the score, 6 look closer, 7 draw the graph.
+- Every print has a  # OUTPUT:  comment above it showing what it prints.
+
+THE FILES (run in this order)
+  data.py                 reads the digits from the two CSV files, draws 20.     ~1 s
+                          Every other file uses it.
+  why_not_if_statements.py  tries plain if-statements instead: 20.7%.        ~4 s
+                          Shows why we need machine learning.
+  knn.py                  K-nearest neighbours, 94.4%. Then two picture          ~3 s
+                          windows: 10 digits it got wrong, and the CONFUSION
+                          MATRIX (row = real digit, column = guess; grey =
+                          right, red = mistakes). Close both, and the DRAWING
+                          WINDOW opens: draw a number in each box, pick
+                          + - x or /, press Read and solve. KNN reads each
+                          digit, shows its probability and solves the sum.
+                          Leave a gap between digits. The top bar shows the
+                          model's accuracy (94.2% with k = 10). On a touch
+                          screen or tablet, draw with a finger or a stylus.
+  choose_k.py             how to choose k from the data: 5-fold cross-       ~1 min
+                          validation for 13 values of k (1 to 1001) on the
+                          training digits only. Best: k = 1 (94.9%). The rule
+                          of thumb k = square root of n = 101 gets 88.0%.
+                          Then a graph of accuracy against k.
+  logistic_regression.py  logistic regression, 91.5%, and softmax probabilities  ~7 s
+  kmeans_clustering.py    K-means clustering (no labels), 57.7%                  ~6 s
+  neural_network.py       activation functions + vanishing gradient              ~1 min
+  how_it_decides.py       takes ONE test digit (a 9) and does each model's       ~20 s
+                          decision by hand with numpy, step by step, then
+                          checks it matches scikit-learn's predict().
+  knn_window.py           the code for knn.py's drawing window. You can also
+                          run it on its own to open just the window.
+                          (An iPad can't run Python windows: on an iPad, open
+                          the presentation link and use its Draw slide.)
+  digits_ai.py            everything in one go, with the final leaderboard       ~1 min
+
+IF SOMETHING GOES WRONG
+- "No module named sklearn" (or numpy / matplotlib): run the pip install line again.
+- "No module named data": the files aren't in the same folder, or you opened a
+  single file instead of the folder. Use File > Open on the folder.
+- The picture doesn't appear: look for a "Plots" tab on the right of PyCharm.
+- "No module named tkinter" (the drawing window): tkinter comes with Python from
+  python.org. Reinstall Python from there and keep "tcl/tk" ticked.
+- Any file: set SHOW_PLOTS = False near the top for a text-only run.
+- knn.py: set SHOW_WINDOW = False (in step 8) to skip the drawing window.
